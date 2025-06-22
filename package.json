@@ -1,0 +1,68 @@
+{
+  "name": "react-native-scroll-to-child",
+  "packageManager": "pnpm@10.12.1",
+  "private": false,
+  "version": "0.0.2",
+  "description": "Scroll any childner of ScrollView into view",
+  "types": "build/index.d.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/filiphsps/react-native-scroll-to-child.git"
+  },
+  "files": [
+    "build"
+  ],
+  "keywords": [
+    "react-native",
+    "react",
+    "scrollIntoView",
+    "form",
+    "scroll",
+    "into",
+    "view",
+    "expo",
+    "visible"
+  ],
+  "author": "Filiph Sandström",
+  "contributors": [
+    {
+      "name": "Filiph Sandström",
+      "email": "filfat@hotmail.se",
+      "url": "https://github.com/filiphsps"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/filiphsps/react-native-scroll-to-child/issues"
+  },
+  "homepage": "https://github.com/filiphsps/react-native-scroll-to-child#README",
+  "scripts": {
+    "start": "concurrently pnpm:start:*",
+    "start:typecheck": "tsc --noEmit --watch",
+    "build": "tsc",
+    "clear": "rimraf build",
+    "prepublish": "pnpm build && pnpm configure:publish",
+    "configure:publish": "json -I -f package.json -e 'this.main=\"build/index.js\"'"
+  },
+  "dependencies": {
+    "prop-types": "15.8.1"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "devDependencies": {
+    "@types/react": "19.1.8",
+    "@types/prop-types": "15.7.15",
+    "concurrently": "9.2.0",
+    "json": "11.0.0",
+    "lodash": "4.17.21",
+    "prettier": "3.5.3",
+    "react": "19.1.0",
+    "react-native": "0.80.0",
+    "rimraf": "6.0.1",
+    "typescript": "5.8.3",
+    "yup": "1.6.1"
+  },
+  "main": "build/index.js"
+}

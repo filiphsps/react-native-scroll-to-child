@@ -1,0 +1,11 @@
+{
+    "customizations": {
+        "codespaces": {
+            "repositories": {
+                "filiphsps/react-native-scroll-to-child": {
+                    "permissions": "write-all"
+                }
+            }
+        }
+    }
+}
