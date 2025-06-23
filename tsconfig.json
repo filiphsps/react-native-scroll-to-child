@@ -17,7 +17,10 @@
         "module": "ESNext",
         "moduleDetection": "auto",
         "moduleResolution": "Bundler",
-        "lib": ["DOM", "ESNext"],
+        "lib": [
+            "DOM",
+            "ESNext"
+        ],
         "jsx": "react-native",
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
@@ -36,11 +39,23 @@
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
         "tsBuildInfoFile": "build/tsconfig.tsbuildinfo",
-        "typeRoots": ["./node_modules/@types", "./src/@types"],
-        "types": ["react"],
+        "typeRoots": [
+            "./node_modules/@types",
+            "./src/@types"
+        ],
+        "types": [
+            "react"
+        ],
         "useDefineForClassFields": true,
         "paths": {}
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx"],
-    "exclude": ["build", "node_modules", "**/*.test.ts", "**/*.test.tsx", "jest*"]
+    "include": [
+        "src"
+    ],
+    "exclude": [
+        "build/",
+        "node_modules",
+        "**/*.test.ts",
+        "**/*.test.tsx",
+    ]
 }

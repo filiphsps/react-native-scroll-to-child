@@ -10,6 +10,7 @@ import unusedImports from 'eslint-plugin-unused-imports';
 import { defineConfig, globalIgnores } from 'eslint/config';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import globals from 'globals';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -20,23 +21,10 @@ const compat = new FlatCompat({
 });
 
 export default defineConfig([
-    globalIgnores([
-        '**/node_modules/',
-        '**/build/',
-        '**/coverage/',
-        '**/dist/',
-        '**/.next/',
-        '**/.now/',
-        '**/.vitest/',
-        '**/*.json',
-        '**/*.lock',
-        '**/*.env',
-        '**/*.log',
-        '**/*.d.ts',
-        '**/babel.config.cjs',
-        '**/jest.config.ts',
-        '**/eslint.config.*'
-    ]),
+    globalIgnores(['build/', 'tsconfig.json', 'coverage/**', 'node_modules/**', '**/*.d.ts']),
+    {
+        ignores: ['jest.config.ts', 'babel.config.mjs']
+    },
     {
         extends: compat.extends(
             'plugin:jsx-a11y/recommended',
@@ -44,7 +32,7 @@ export default defineConfig([
             'plugin:react/recommended'
         ),
 
-        files: ['src/**/*.*'],
+        files: ['**/*.ts', '**/*.tsx'],
 
         plugins: {
             '@typescript-eslint': typescriptEslint,
@@ -56,6 +44,10 @@ export default defineConfig([
         },
 
         languageOptions: {
+            globals: {
+                ...globals.node
+            },
+
             parser: tsParser,
             ecmaVersion: 'latest',
             sourceType: 'module',
@@ -65,7 +57,7 @@ export default defineConfig([
                     jsx: true
                 },
 
-                project: ['./tsconfig.json', './tsconfig.test.json']
+                project: ['tsconfig.json', 'tsconfig.test.json']
             }
         },
 

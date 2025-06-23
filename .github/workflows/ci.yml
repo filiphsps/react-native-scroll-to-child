@@ -6,12 +6,12 @@ on:
         branches:
             - master
             - staging
-            - "dev/*"
-            - "fix/*"
+            - 'dev/*'
+            - 'fix/*'
         paths-ignore:
-            - "**.md"
-            - "**.txt"
-            - "LICENSE"
+            - '**.md'
+            - '**.txt'
+            - 'LICENSE'
 
 env:
     CI: true
@@ -20,6 +20,7 @@ env:
 
 permissions:
     contents: read
+    checks: write
 
 jobs:
     lint:
@@ -95,11 +96,7 @@ jobs:
                   path: build/
 
             - name: 🧪 Test
-              run: pnpm run lint
-
-            - name: 🦺 Report Coverage to GitHub
-              if: ${{ !cancelled() }}
-              uses: davelosert/vitest-coverage-report-action@v2.8.3
+              run: pnpm run test
 
     release:
         name: 🚢 Release
@@ -131,4 +128,5 @@ jobs:
               run: npm audit signatures
 
             - name: 📦 Semantic Release
+              if: ${{ !cancelled() }}
               run: pnpx semantic-release
