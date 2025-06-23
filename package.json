@@ -115,21 +115,25 @@
                             "release": "minor"
                         },
                         {
+                            "type": "feat",
+                            "release": "patch"
+                        },
+                        {
                             "type": "deps",
                             "release": false
                         },
                         {
                             "type": "chore",
-                            "subject": "deps",
+                            "scope": "deps",
                             "release": false
                         },
                         {
                             "type": "*",
-                            "release": "patch"
+                            "release": false
                         },
                         {
                             "subject": "*",
-                            "release": "patch"
+                            "release": false
                         }
                     ],
                     "parserOpts": {
