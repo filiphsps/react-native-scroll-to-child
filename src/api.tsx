@@ -14,7 +14,6 @@ export const scrollIntoView = async (
     const [scrollViewLayout, viewLayout] = await Promise.all([measureElement(scrollView), measureElement(view)]);
 
     const newScrollY = computeScrollY(scrollViewLayout, viewLayout, scrollY, insets, align);
-
     const newScrollX = computeScrollX(scrollViewLayout, viewLayout, scrollX, insets, align);
 
     const scrollResponder = scrollView.getScrollResponder();

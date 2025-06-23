@@ -1,0 +1,6 @@
+packages:
+    - .
+
+overrides:
+    rimraf: "$rimraf"
+    glob: "11"

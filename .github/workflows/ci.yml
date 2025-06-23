@@ -6,34 +6,22 @@ on:
         branches:
             - master
             - staging
-            - 'dev/*'
-            - 'fix/*'
+            - "dev/*"
+            - "fix/*"
         paths-ignore:
-            - '**.md'
-            - '**.txt'
-            - 'LICENSE'
+            - "**.md"
+            - "**.txt"
+            - "LICENSE"
 
 env:
     CI: true
     TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
     TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
+permissions:
+    contents: read
+
 jobs:
-    build:
-        name: 🔨 Build
-        needs: [lint, typecheck]
-        timeout-minutes: 25
-        runs-on: ubuntu-latest
-        steps:
-            - name: 🕶️ Checkout repository
-              uses: actions/checkout@v4
-
-            - name: 🚀 Bootstrap
-              uses: ./.github/common/bootstrap
-
-            - name: 🔨 Build All
-              run: pnpm run build
-
     lint:
         name: 📋 Lint
         timeout-minutes: 15
@@ -61,3 +49,61 @@ jobs:
 
             - name: ✅ Typecheck
               run: pnpm run typecheck
+
+    build:
+        name: 🔨 Build
+        needs: [lint, typecheck]
+        timeout-minutes: 25
+        runs-on: ubuntu-latest
+        steps:
+            - name: 🕶️ Checkout repository
+              uses: actions/checkout@v4
+
+            - name: 🚀 Bootstrap
+              uses: ./.github/common/bootstrap
+
+            - name: 🔨 Build All
+              run: pnpm run build
+
+            - name: 📦 Upload build artifact
+              uses: actions/upload-artifact@v4
+              with:
+                  retention-days: 1
+                  include-hidden-files: true
+                  overwrite: true
+                  compression-level: 0
+                  if-no-files-found: error
+                  name: build-artifact
+                  path: build/
+
+    release:
+        name: 🚢 Release
+        needs: [build]
+        if: github.ref == 'refs/heads/master'
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+            issues: write
+            pull-requests: write
+            id-token: write
+        env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        steps:
+            - name: 🕶️ Checkout repository
+              uses: actions/checkout@v4
+
+            - name: 🚀 Bootstrap
+              uses: ./.github/common/bootstrap
+
+            - name: 📥 Download build artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: build-artifact
+                  path: build/
+
+            - name: 🔬 Verify integrity
+              run: npm audit signatures
+
+            - name: 📦 Semantic Release
+              run: pnpx semantic-release

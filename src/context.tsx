@@ -7,7 +7,10 @@ export default Context;
 
 export const APIConsumer = Context.Consumer;
 
-export const ProvideAPI: React.FC<{ dependencies: ScrollIntoViewDependencies; children: React.ReactNode }> = ({ dependencies, children }) => {
+export const ProvideAPI: React.FC<{ dependencies: ScrollIntoViewDependencies; children: React.ReactNode }> = ({
+    dependencies,
+    children
+}) => {
     const api = React.useMemo(() => new ScrollIntoViewAPI(dependencies), [dependencies]);
     return <Context.Provider value={api}>{children}</Context.Provider>;
 };

@@ -74,18 +74,21 @@ export const ContainerBase = React.forwardRef<View, ContainerProps>((props, ref)
         return options;
     }, [scrollIntoViewOptions, props]);
 
-    const scrollIntoView = React.useCallback((providedOptions: PartialOptions = {}) => {
-        if (unmounted.current) {
-            return;
-        }
-        if (ensureApiProvided()) {
-            const options = {
-                ...getPropsOptions(),
-                ...providedOptions
-            };
-            scrollIntoViewAPI!.scrollIntoView((container.current!), options);
-        }
-    }, [ensureApiProvided, getPropsOptions, scrollIntoViewAPI]);
+    const scrollIntoView = React.useCallback(
+        (providedOptions: PartialOptions = {}) => {
+            if (unmounted.current) {
+                return;
+            }
+            if (ensureApiProvided()) {
+                const options = {
+                    ...getPropsOptions(),
+                    ...providedOptions
+                };
+                scrollIntoViewAPI!.scrollIntoView(container.current!, options);
+            }
+        },
+        [ensureApiProvided, getPropsOptions, scrollIntoViewAPI]
+    );
 
     React.useEffect(() => {
         setTimeout(() => {
@@ -111,11 +114,7 @@ export const ContainerBase = React.forwardRef<View, ContainerProps>((props, ref)
     }, [enabled, onUpdate, scrollIntoViewKey, scrollIntoView]);
 
     return (
-        <View
-            {...rest}
-            ref={ref || container}
-            collapsable={false}
-        >
+        <View {...rest} ref={ref || container} collapsable={false}>
             {children}
         </View>
     );
@@ -126,9 +125,7 @@ ContainerBase.displayName = 'ContainerBase';
 export const Container = React.forwardRef<View, ContainerProps>((props, ref) => (
     <APIConsumer>
         {(scrollIntoViewAPI) =>
-            scrollIntoViewAPI ? (
-                <ContainerBase ref={ref} {...props} scrollIntoViewAPI={scrollIntoViewAPI} />
-            ) : null
+            scrollIntoViewAPI ? <ContainerBase ref={ref} {...props} scrollIntoViewAPI={scrollIntoViewAPI} /> : null
         }
     </APIConsumer>
 ));

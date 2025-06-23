@@ -59,12 +59,7 @@ export const computeScrollYTop = ({ scrollY, viewTopY, insets }: ComputationData
     return scrollY + viewTopY - (insets.top || 0);
 };
 
-export const computeScrollYBottom = ({
-    scrollViewHeight,
-    scrollY,
-    viewBottomY,
-    insets
-}: ComputationData): number => {
+export const computeScrollYBottom = ({ scrollViewHeight, scrollY, viewBottomY, insets }: ComputationData): number => {
     return scrollY + viewBottomY - scrollViewHeight + (insets.bottom || 0);
 };
 

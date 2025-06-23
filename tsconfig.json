@@ -4,6 +4,7 @@
         "allowJs": false,
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
+        "rootDir": "./src",
         "composite": true,
         "declaration": true,
         "declarationMap": true,
@@ -16,7 +17,9 @@
         "module": "ESNext",
         "moduleDetection": "force",
         "moduleResolution": "Bundler",
-        "lib": ["ES2024"],
+        "lib": [
+            "ES2024"
+        ],
         "jsx": "react-native",
         "noFallthroughCasesInSwitch": true,
         "noImplicitAny": true,
@@ -34,12 +37,14 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
+        "tsBuildInfoFile": "build/tsconfig.tsbuildinfo",
         "typeRoots": [
             "./node_modules/@types",
             "./src/@types"
         ],
         "types": [],
         "useDefineForClassFields": true,
+        "paths": {}
     },
     "include": [
         "**/*.ts",
@@ -47,6 +52,6 @@
     ],
     "exclude": [
         "build",
-        "node_modules",
+        "node_modules"
     ]
 }

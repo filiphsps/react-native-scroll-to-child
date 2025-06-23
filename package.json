@@ -1,86 +1,122 @@
 {
-  "name": "react-native-scroll-to-child",
-  "packageManager": "pnpm@10.12.2",
-  "private": false,
-  "version": "0.0.1",
-  "description": "Scroll any childner of ScrollView into view",
-  "types": "build/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/filiphsps/react-native-scroll-to-child.git"
-  },
-  "files": [
-    "build"
-  ],
-  "keywords": [
-    "react-native",
-    "react",
-    "scrollIntoView",
-    "form",
-    "scroll",
-    "into",
-    "view",
-    "expo",
-    "visible"
-  ],
-  "author": "Filiph Sandström",
-  "contributors": [
-    {
-      "name": "Filiph Sandström",
-      "email": "filfat@hotmail.se",
-      "url": "https://github.com/filiphsps"
+    "name": "react-native-scroll-to-child",
+    "packageManager": "pnpm@10.12.2",
+    "private": false,
+    "version": "0.0.1",
+    "description": "Scroll any childner of ScrollView into view",
+    "types": "build/index.d.ts",
+    "main": "build/index.js",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/filiphsps/react-native-scroll-to-child.git"
+    },
+    "files": [
+        "build"
+    ],
+    "keywords": [
+        "react-native",
+        "react",
+        "scrollIntoView",
+        "form",
+        "scroll",
+        "into",
+        "view",
+        "expo",
+        "visible"
+    ],
+    "author": "Filiph Sandström",
+    "contributors": [
+        {
+            "name": "Filiph Sandström",
+            "email": "filfat@hotmail.se",
+            "url": "https://github.com/filiphsps"
+        }
+    ],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/filiphsps/react-native-scroll-to-child/issues"
+    },
+    "homepage": "https://github.com/filiphsps/react-native-scroll-to-child#README",
+    "scripts": {
+        "start": "concurrently pnpm:start:*",
+        "start:typecheck": "tsc --noEmit --watch",
+        "build": "tsc",
+        "clear": "rimraf build",
+        "prepublish": "pnpm build && pnpm configure:publish",
+        "configure:publish": "json -I -f package.json -e 'this.main=\"build/index.js\"'",
+        "lint": "exit 0",
+        "typecheck": "tsc --noEmit",
+        "prettier": "prettier **/src/**/*.{ts,tsx} --check",
+        "format": "concurrently pnpm:format:*",
+        "format:prettier": "prettier --write \"./**/*.{cjs,mjs,ts,tsx,scss,json}\""
+    },
+    "dependencies": {},
+    "peerDependencies": {
+        "react": "*",
+        "react-native": "*"
+    },
+    "devDependencies": {
+        "@semantic-release/changelog": "6.0.3",
+        "@semantic-release/commit-analyzer": "13.0.1",
+        "@semantic-release/git": "10.0.1",
+        "@semantic-release/npm": "12.0.1",
+        "@semantic-release/release-notes-generator": "14.0.3",
+        "@types/react": "19.1.8",
+        "concurrently": "9.2.0",
+        "json": "11.0.0",
+        "lodash": "4.17.21",
+        "prettier": "3.6.0",
+        "react-native": "0.80.0",
+        "react": "19.1.0",
+        "rimraf": "6.0.1",
+        "semantic-release": "24.2.5",
+        "typescript": "5.8.3"
+    },
+    "release": {
+        "dryRun": true,
+        "repositoryUrl": "https://github.com/filiphsps/react-native-scroll-to-child",
+        "branches": [
+            "master"
+        ],
+        "plugins": [
+            [
+                "@semantic-release/commit-analyzer",
+                {
+                    "preset": "angular",
+                    "releaseRules": [
+                        {
+                            "breaking": true,
+                            "release": "minor"
+                        },
+                        {
+                            "type": "*",
+                            "release": "patch"
+                        },
+                        {
+                            "subject": "*",
+                            "release": "patch"
+                        }
+                    ],
+                    "parserOpts": {
+                        "noteKeywords": [
+                            "BREAKING CHANGE",
+                            "BREAKING CHANGES"
+                        ]
+                    }
+                }
+            ],
+            "@semantic-release/release-notes-generator",
+            "@semantic-release/changelog",
+            "@semantic-release/npm",
+            [
+                "@semantic-release/git",
+                {
+                    "assets": [
+                        "CHANGELOG.md"
+                    ],
+                    "message": "chore(release): 🚀 ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+                }
+            ]
+        ]
     }
-  ],
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/filiphsps/react-native-scroll-to-child/issues"
-  },
-  "homepage": "https://github.com/filiphsps/react-native-scroll-to-child#README",
-  "scripts": {
-    "start": "concurrently pnpm:start:*",
-    "start:typecheck": "tsc --noEmit --watch",
-    "build": "tsc",
-    "clear": "rimraf build",
-    "prepublish": "pnpm build && pnpm configure:publish",
-    "configure:publish": "json -I -f package.json -e 'this.main=\"build/index.js\"'",
-    "lint": "exit 0",
-    "typecheck": "tsc --noEmit",
-    "prettier": "prettier **/src/**/*.{ts,tsx} --check",
-    "format": "concurrently pnpm:format:*",
-    "format:prettier": "prettier --write \"./**/*.{cjs,mjs,ts,tsx,scss,json}\""
-  },
-  "dependencies": {
-    "prop-types": "15.8.1"
-  },
-  "peerDependencies": {
-    "react": "*",
-    "react-native": "*"
-  },
-  "devDependencies": {
-    "@types/react": "19.1.8",
-    "@types/prop-types": "15.7.15",
-    "concurrently": "9.2.0",
-    "json": "11.0.0",
-    "lodash": "4.17.21",
-    "prettier": "3.6.0",
-    "react": "19.1.0",
-    "react-native": "0.80.0",
-    "rimraf": "6.0.1",
-    "typescript": "5.8.3",
-    "yup": "1.6.1"
-  },
-  "main": "build/index.js",
-  "release": {
-    "branches": ["master"],
-    "plugins": [
-      ["@semantic-release/commit-analyzer"],
-      ["@semantic-release/release-notes-generator"],
-      ["@semantic-release/changelog"],
-      ["@semantic-release/npm"],
-      ["@semantic-release/git", {
-        "assets": ["package.json", "CHANGELOG.md"],
-        "message": "chore(release): 🚀 ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }]
-    ]
-  }
 }

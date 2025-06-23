@@ -1,7 +1,8 @@
 # react-native-scroll-to-child
 
-[![NPM](https://img.shields.io/npm/dm/react-native-scroll-to-child.svg)](https://www.npmjs.com/package/react-native-scroll-to-child)
-[![NPM](https://img.shields.io/npm/v/react-native-scroll-to-child.svg?style=flat)](https://www.npmjs.com/package/react-native-scroll-to-child)
+[![npm downloads](https://img.shields.io/npm/dm/react-native-scroll-to-child.svg)](https://www.npmjs.com/package/react-native-scroll-to-child)
+[![npm version](https://img.shields.io/npm/v/react-native-scroll-to-child.svg?style=flat)](https://www.npmjs.com/package/react-native-scroll-to-child)
+[![GitHub checks](https://img.shields.io/github/checks-status/filiphsps/react-native-scroll-to-child/master.svg?style=flat)](https://github.com/filiphsps/react-native-scroll-to-child)
 
 Scroll a ReactNative View ref into the visible portion of a `ScrollView`.
 
@@ -13,7 +14,7 @@ pnpm install react-native-scroll-to-child
 
 # Why fork?
 
-The original project ain't really maintained anymore and I needed horizontal scroll support. I might decide to rewrite some of the more dated parts in the future; but for now this works well enough.
+The [original project](https://github.com/slorber/react-native-scroll-into-view) ain't really maintained anymore and I needed horizontal scroll support. I might decide to rewrite some of the more dated parts in the future; but for now this works well enough.
 
 # Features:
 
@@ -28,7 +29,7 @@ The original project ain't really maintained anymore and I needed horizontal scr
 
 # Minimal hooks example
 
-```js
+```tsx
 import { View, Text, ScrollView } from 'react-native';
 import {
   wrapScrollView,
@@ -68,7 +69,7 @@ function MyScreenContent() {
 
 # API
 
-```typescript
+```tsx
 import {
   ScrollIntoView, // enhanced View container
   wrapScrollView, // simple wrapper, no config
@@ -100,6 +101,7 @@ const options = {
 
   // Advanced: use these options as escape hatches if the lib default functions do not satisfy your needs
   computeScrollY: (scrollViewLayout, viewLayout, scrollY, insets, align) => {},
+  computeScrollX: (scrollViewLayout, viewLayout, scrollX, insets, align) => {},
   measureElement: viewRef => {},
 };
 
@@ -147,7 +149,7 @@ function ScreenContent() {
 
 You can also configure the HOC:
 
-```typescript
+```tsx
 const CustomScrollView = wrapScrollViewConfigured({
   // SIMPLE CONFIG:
   // ScrollIntoView default/fallback options
