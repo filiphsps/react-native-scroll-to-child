@@ -2,7 +2,7 @@
   "name": "react-native-scroll-to-child",
   "packageManager": "pnpm@10.12.2",
   "private": false,
-  "version": "0.0.2",
+  "version": "0.0.1",
   "description": "Scroll any childner of ScrollView into view",
   "types": "build/index.d.ts",
   "repository": {
@@ -69,5 +69,18 @@
     "typescript": "5.8.3",
     "yup": "1.6.1"
   },
-  "main": "build/index.js"
+  "main": "build/index.js",
+  "release": {
+    "branches": ["master"]
+    "plugins": [
+      ["@semantic-release/commit-analyzer"],
+      ["@semantic-release/release-notes-generator"],
+      ["@semantic-release/changelog"],
+      ["@semantic-release/npm"],
+      ["@semantic-release/git", {
+        "assets": ["package.json", "CHANGELOG.md"],
+        "message": "chore(release): 🚀 ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }]
+    ]
+  }
 }
