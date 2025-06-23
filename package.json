@@ -3,7 +3,7 @@
     "packageManager": "pnpm@10.12.2",
     "private": false,
     "version": "0.0.1",
-    "description": "Scroll any childner of ScrollView into view",
+    "description": "Scroll any child of a ScrollView into the viewport",
     "types": "build/index.d.ts",
     "main": "build/index.js",
     "type": "module",
@@ -113,6 +113,10 @@
                         {
                             "breaking": true,
                             "release": "minor"
+                        },
+                        {
+                            "type": "deps",
+                            "release": false
                         },
                         {
                             "type": "*",
