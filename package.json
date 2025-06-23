@@ -42,7 +42,12 @@
     "build": "tsc",
     "clear": "rimraf build",
     "prepublish": "pnpm build && pnpm configure:publish",
-    "configure:publish": "json -I -f package.json -e 'this.main=\"build/index.js\"'"
+    "configure:publish": "json -I -f package.json -e 'this.main=\"build/index.js\"'",
+    "lint": "exit 0",
+    "typecheck": "tsc --noEmit",
+    "prettier": "prettier **/src/**/*.{ts,tsx} --check",
+    "format": "concurrently pnpm:format:*",
+    "format:prettier": "prettier --write \"./**/*.{cjs,mjs,ts,tsx,scss,json}\""
   },
   "dependencies": {
     "prop-types": "15.8.1"
