@@ -1,5 +1,4 @@
 import React, { ReactNode } from 'react';
-import PropTypes from 'prop-types';
 import { View, ViewProps } from 'react-native';
 import { throttle } from './utils';
 import { PartialOptions, OptionKeys, OptionKey } from './config';
@@ -123,15 +122,6 @@ export const ContainerBase = React.forwardRef<View, ContainerProps>((props, ref)
 });
 
 ContainerBase.displayName = 'ContainerBase';
-
-ContainerBase.propTypes = {
-    enabled: PropTypes.bool.isRequired,
-    scrollIntoViewKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
-    animated: PropTypes.bool.isRequired,
-    immediate: PropTypes.bool.isRequired,
-    onMount: PropTypes.bool.isRequired,
-    onUpdate: PropTypes.bool.isRequired
-};
 
 export const Container = React.forwardRef<View, ContainerProps>((props, ref) => (
     <APIConsumer>
