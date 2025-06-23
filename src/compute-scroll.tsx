@@ -26,13 +26,7 @@ export const computeScrollY = (
         scrollY,
         viewTopY,
         viewBottomY,
-        insets: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-            ...insets
-        }
+        insets
     };
     switch (align) {
         case 'auto':
@@ -62,7 +56,7 @@ export const computeScrollYAuto = (data: ComputationData): number => {
 };
 
 export const computeScrollYTop = ({ scrollY, viewTopY, insets }: ComputationData): number => {
-    return scrollY + viewTopY - insets.top;
+    return scrollY + viewTopY - (insets.top || 0);
 };
 
 export const computeScrollYBottom = ({
@@ -71,7 +65,7 @@ export const computeScrollYBottom = ({
     viewBottomY,
     insets
 }: ComputationData): number => {
-    return scrollY + viewBottomY - scrollViewHeight + insets.bottom;
+    return scrollY + viewBottomY - scrollViewHeight + (insets.bottom || 0);
 };
 
 export const computeScrollYCenter = (data: ComputationData): number => {
@@ -103,13 +97,7 @@ export const computeScrollX = (
         scrollX,
         viewLeftX,
         viewRightX,
-        insets: {
-            top: 0,
-            right: 0,
-            bottom: 0,
-            left: 0,
-            ...insets
-        }
+        insets
     };
     switch (align) {
         case 'auto':
@@ -139,11 +127,11 @@ export const computeScrollXAuto = (data: ComputationDataX): number => {
 };
 
 export const computeScrollXLeft = ({ scrollX, viewLeftX, insets }: ComputationDataX): number => {
-    return scrollX + viewLeftX - insets.left;
+    return scrollX + viewLeftX - (insets.left || 0);
 };
 
 export const computeScrollXRight = ({ scrollViewWidth, scrollX, viewRightX, insets }: ComputationDataX): number => {
-    return scrollX + viewRightX - scrollViewWidth + insets.right;
+    return scrollX + viewRightX - scrollViewWidth + (insets.right || 0);
 };
 
 export const computeScrollXCenter = (data: ComputationDataX): number => {
