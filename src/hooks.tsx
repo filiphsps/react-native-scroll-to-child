@@ -1,19 +1,20 @@
-import { ScrollIntoViewAPI } from './api';
 import { useContext } from 'react';
+
 import Context from './context';
+
+import type { ScrollIntoViewAPI } from './api';
 
 function useScrollIntoViewContext(): ScrollIntoViewAPI {
     const value = useContext(Context);
     if (value === null) {
         throw new Error(
-            'react-native-scroll-to-child context is missing. ' +
-                "Don't forget to wrap a scrollview with  wrapScrollView(ScrollView) and use that ScrollView at the top of the component tree!"
+            'ScrollIntoView context is missing. Ensure your ScrollView is wrapped with wrapScrollView() and is an ancestor in the component tree.'
         );
     }
     return value;
 }
 
-export function useScrollIntoView() {
+export function useScrollIntoView(): ScrollIntoViewAPI['scrollIntoView'] {
     const { scrollIntoView } = useScrollIntoViewContext();
     return scrollIntoView;
 }

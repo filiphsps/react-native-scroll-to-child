@@ -1,9 +1,13 @@
-import React, { ComponentType, LegacyRef } from 'react';
+import React, { forwardRef, useCallback, useImperativeHandle, useRef } from 'react';
+import { Animated } from 'react-native';
 
-import { Animated, ScrollView, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
-import { normalizeOptions, PartialHOCConfig, PartialOptions, normalizeHOCConfig } from './config';
+import { normalizeHOCConfig, normalizeOptions } from './config';
 import { ProvideAPI } from './context';
-import { ScrollIntoViewDependencies } from './api';
+
+import type { ScrollIntoViewDependencies } from './api';
+import type { PartialHOCConfig, PartialOptions } from './config';
+import type { ComponentType } from 'react';
+import type { NativeScrollEvent, NativeSyntheticEvent, ScrollView } from 'react-native';
 
 type ScrollViewProps = React.ComponentProps<typeof ScrollView>;
 type ScrollViewScrollEvent = NativeSyntheticEvent<NativeScrollEvent>;
@@ -11,8 +15,7 @@ type ScrollViewScrollEvent = NativeSyntheticEvent<NativeScrollEvent>;
 type HOCProps = ScrollViewProps & {
     scrollIntoViewOptions?: PartialOptions;
     scrollEventThrottle?: number;
-    innerRef?: any; // TODO
-    contentOffset?: number; // TODO don't remember what this is for :s
+    contentOffset?: { x: number; y: number };
 };
 
 export type WrappableComponent = ComponentType<ScrollViewProps>;
@@ -24,79 +27,43 @@ export const wrapScrollViewHOC = (
 ): WrappedComponent => {
     const { refPropName, getScrollViewNode, scrollEventThrottle, options } = normalizeHOCConfig(config);
 
-    class ScrollViewWrapper extends React.Component<HOCProps> {
-        static displayName = `ScrollIntoViewWrapper(${
-            ScrollViewComp.displayName || ScrollViewComp.name || 'Component'
-        })`;
+    const ScrollViewWrapper = forwardRef<ScrollView, HOCProps>((props, ref) => {
+        const internalRef = useRef<ScrollView>(null);
+        const scrollY = useRef(props.contentOffset?.y || 0);
+        const scrollX = useRef(props.contentOffset?.x || 0);
 
-        ref: React.RefObject<ScrollView | null>;
-        scrollY: number;
-        scrollX: number;
-        dependencies: ScrollIntoViewDependencies;
+        const handleScroll = useCallback((event: ScrollViewScrollEvent) => {
+            scrollY.current = event.nativeEvent.contentOffset.y;
+            scrollX.current = event.nativeEvent.contentOffset.x;
+        }, []);
 
-        constructor(props: HOCProps) {
-            super(props);
-            this.ref = React.createRef();
-            this.scrollY = this.props.contentOffset ? this.props.contentOffset.y : 0;
-            this.scrollX = this.props.contentOffset ? this.props.contentOffset.x : 0;
-            this.dependencies = {
-                getScrollView: this.getScrollView!,
-                getScrollY: this.getScrollY,
-                getScrollX: this.getScrollX,
-                getDefaultOptions: this.getDefaultOptions
-            };
-        }
-
-        handleRef = (ref: LegacyRef<ScrollView>) => {
-            // @ts-ignore
-            this.ref.current = ref;
-            if (this.props.innerRef) {
-                if (typeof this.props.innerRef.current !== 'undefined') {
-                    this.props.innerRef.current = ref;
-                } else {
-                    this.props.innerRef(ref);
-                }
-            }
+        const dependencies: ScrollIntoViewDependencies = {
+            getScrollView: () => {
+                if (!internalRef.current) throw new Error('ScrollView ref is not set');
+                return getScrollViewNode(internalRef.current);
+            },
+            getScrollY: () => scrollY.current,
+            getScrollX: () => scrollX.current,
+            getDefaultOptions: () => normalizeOptions(props.scrollIntoViewOptions, options)
         };
 
-        handleScroll = (event: ScrollViewScrollEvent) => {
-            this.scrollY = event.nativeEvent.contentOffset.y;
-            this.scrollX = event.nativeEvent.contentOffset.x;
+        useImperativeHandle(ref, () => internalRef.current!, []);
+
+        const scrollViewProps = {
+            ...props,
+            [refPropName]: internalRef,
+            scrollEventThrottle: props.scrollEventThrottle || scrollEventThrottle,
+            onScroll: (Animated as any).forkEvent(props.onScroll, handleScroll)
         };
 
-        getScrollY = () => this.scrollY;
-        getScrollX = () => this.scrollX;
+        return (
+            <ScrollViewComp {...scrollViewProps}>
+                <ProvideAPI dependencies={dependencies}>{props.children}</ProvideAPI>
+            </ScrollViewComp>
+        );
+    });
 
-        getScrollView = () => {
-            if (!this.ref.current) {
-                throw new Error('ScrollView ref is not set');
-            }
-            return getScrollViewNode(this.ref.current);
-        };
+    ScrollViewWrapper.displayName = `ScrollIntoViewWrapper(${ScrollViewComp.displayName || ScrollViewComp.name || 'Component'})`;
 
-        getDefaultOptions = () => normalizeOptions(this.props.scrollIntoViewOptions, options);
-
-        render() {
-            const { children, ...props } = this.props;
-
-            const scrollViewProps = {
-                ...props,
-                [refPropName]: this.handleRef,
-                scrollEventThrottle: this.props.scrollEventThrottle || scrollEventThrottle,
-                // See https://github.com/facebook/react-native/issues/19623
-                // @ts-ignore // TODO not yet in typedefs
-                onScroll: Animated.forkEvent(this.props.onScroll, this.handleScroll)
-            };
-
-            return (
-                <ScrollViewComp {...scrollViewProps}>
-                    <ProvideAPI dependencies={this.dependencies}>{children}</ProvideAPI>
-                </ScrollViewComp>
-            );
-        }
-    }
-
-    return React.forwardRef<ScrollViewWrapper, HOCProps>((props, ref) => (
-        <ScrollViewWrapper innerRef={ref} {...props} />
-    ));
+    return ScrollViewWrapper;
 };

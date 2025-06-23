@@ -76,9 +76,34 @@ jobs:
                   name: build-artifact
                   path: build/
 
+    test:
+        name: 🧪 Test
+        needs: [build]
+        timeout-minutes: 25
+        runs-on: ubuntu-latest
+        steps:
+            - name: 🕶️ Checkout repository
+              uses: actions/checkout@v4
+
+            - name: 🚀 Bootstrap
+              uses: ./.github/common/bootstrap
+
+            - name: 📥 Download build artifact
+              uses: actions/download-artifact@v4
+              with:
+                  name: build-artifact
+                  path: build/
+
+            - name: 🧪 Test
+              run: pnpm run lint
+
+            - name: 🦺 Report Coverage to GitHub
+              if: ${{ !cancelled() }}
+              uses: davelosert/vitest-coverage-report-action@v2.8.3
+
     release:
         name: 🚢 Release
-        needs: [build]
+        needs: [build, test]
         if: github.ref == 'refs/heads/master'
         runs-on: ubuntu-latest
         permissions:

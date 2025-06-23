@@ -1,6 +1,8 @@
-import { PartialHOCConfig } from './config';
-import { WrappableComponent, wrapScrollViewHOC } from './hoc';
 import { Container } from './container';
+import { wrapScrollViewHOC } from './hoc';
+
+import type { PartialHOCConfig } from './config';
+import type { WrappableComponent } from './hoc';
 
 export * from './hooks';
 

@@ -1,6 +1,10 @@
-import { View, ScrollView } from 'react-native';
+import { normalizeOptions } from './config';
 import { throttle } from './utils';
-import { FullOptions, normalizeOptions, PartialOptions } from './config';
+
+import type { FullOptions, PartialOptions } from './config';
+import type { ScrollView, View } from 'react-native';
+
+type ScrollParams = { x: number; y: number; animated: boolean };
 
 export const scrollIntoView = async (
     scrollView: ScrollView,
@@ -8,19 +12,29 @@ export const scrollIntoView = async (
     scrollY: number,
     scrollX: number,
     options: PartialOptions
-) => {
+): Promise<void> => {
+    if (!(scrollView as any) || !(view as any)) {
+        throw new Error('ScrollView and target View must be provided');
+    }
+
     const { align, animated, computeScrollY, computeScrollX, measureElement, insets } = normalizeOptions(options);
 
-    const [scrollViewLayout, viewLayout] = await Promise.all([measureElement(scrollView), measureElement(view)]);
+    try {
+        const [scrollViewLayout, viewLayout] = await Promise.all([measureElement(scrollView), measureElement(view)]);
 
-    const newScrollY = computeScrollY(scrollViewLayout, viewLayout, scrollY, insets, align);
-    const newScrollX = computeScrollX(scrollViewLayout, viewLayout, scrollX, insets, align);
+        const targetScrollY = computeScrollY(scrollViewLayout, viewLayout, scrollY, insets, align);
+        const targetScrollX = computeScrollX(scrollViewLayout, viewLayout, scrollX, insets, align);
+        const scrollParams: ScrollParams = { x: targetScrollX, y: targetScrollY, animated };
 
-    const scrollResponder = scrollView.getScrollResponder();
-    if (scrollResponder.scrollResponderScrollTo != null) {
-        scrollResponder.scrollResponderScrollTo({ x: newScrollX, y: newScrollY, animated });
-    } else {
-        scrollView.scrollTo({ x: newScrollX, y: newScrollY, animated });
+        const scrollResponder = scrollView.getScrollResponder();
+        if ((scrollResponder as any).scrollResponderScrollTo) {
+            scrollResponder.scrollResponderScrollTo(scrollParams);
+        } else {
+            scrollView.scrollTo(scrollParams);
+        }
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+        throw new Error(`Failed to scroll into view: ${errorMessage}`);
     }
 };
 
@@ -30,57 +44,42 @@ type GetScrollX = () => number;
 type GetDefaultOptions = () => FullOptions;
 
 export type ScrollIntoViewDependencies = {
-    getScrollView: GetScrollView;
-    getScrollY: GetScrollY;
-    getScrollX: GetScrollX;
-    getDefaultOptions: GetDefaultOptions;
+    readonly getScrollView: GetScrollView;
+    readonly getScrollY: GetScrollY;
+    readonly getScrollX: GetScrollX;
+    readonly getDefaultOptions: GetDefaultOptions;
 };
 
 export class ScrollIntoViewAPI {
-    dependencies: ScrollIntoViewDependencies;
-
-    constructor(dependencies: ScrollIntoViewDependencies) {
-        if (!dependencies.getScrollView) {
-            throw new Error('getScrollView is required');
-        }
-        if (!dependencies.getScrollY) {
-            throw new Error('getScrollY is required');
-        }
-        if (!dependencies.getScrollX) {
-            throw new Error('getScrollX is required');
-        }
-        if (!dependencies.getDefaultOptions) {
-            throw new Error('getDefaultOptions is required');
-        }
-        this.dependencies = dependencies;
+    constructor(private readonly dependencies: ScrollIntoViewDependencies) {
+        this.validateDependencies(dependencies);
     }
 
-    getNormalizedOptions = (options: PartialOptions = {}) =>
+    private validateDependencies(deps: ScrollIntoViewDependencies): void {
+        const requiredDepKeys: (keyof ScrollIntoViewDependencies)[] = [
+            'getScrollView',
+            'getScrollY',
+            'getScrollX',
+            'getDefaultOptions'
+        ];
+        for (const key of requiredDepKeys) {
+            if (typeof deps[key] !== 'function') {
+                throw new Error(`Dependency "${key}" must be a function.`);
+            }
+        }
+    }
+
+    private getNormalizedOptions = (options: PartialOptions = {}): FullOptions =>
         normalizeOptions(options, this.dependencies.getDefaultOptions());
 
-    scrollIntoView = (view: View, options?: PartialOptions) => {
+    public scrollIntoView = (view: View, options?: PartialOptions): Promise<void> => {
         const normalizedOptions = this.getNormalizedOptions(options);
-        if (normalizedOptions.immediate) {
-            return this.scrollIntoViewImmediate(view, normalizedOptions);
-        } else {
-            return this.scrollIntoViewThrottled(view, normalizedOptions);
-        }
+        return normalizedOptions.immediate
+            ? this.scrollIntoViewImmediate(view, normalizedOptions)
+            : this.scrollIntoViewThrottled(view, normalizedOptions);
     };
 
-    // We throttle the calls, so that if 2 views where to scroll into view at almost the same time, only the first one will do
-    // ie if we want to scroll into view form errors, the first error will scroll into view
-    // this behavior is probably subjective and should be configurable?
-    scrollIntoViewThrottled = throttle((view: View, options: PartialOptions) => {
-        return scrollIntoView(
-            this.dependencies.getScrollView(),
-            view,
-            this.dependencies.getScrollY(),
-            this.dependencies.getScrollX(),
-            options
-        );
-    }, 16);
-
-    scrollIntoViewImmediate = (view: View, options: PartialOptions) => {
+    private performScroll = (view: View, options: PartialOptions): Promise<void> => {
         return scrollIntoView(
             this.dependencies.getScrollView(),
             view,
@@ -89,4 +88,8 @@ export class ScrollIntoViewAPI {
             options
         );
     };
+
+    private scrollIntoViewThrottled = throttle(this.performScroll, 16);
+
+    private scrollIntoViewImmediate = this.performScroll;
 }

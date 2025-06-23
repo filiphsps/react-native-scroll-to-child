@@ -1,6 +1,9 @@
-import { ScrollView, Platform } from 'react-native';
+import { Platform } from 'react-native';
+
+import { computeScrollX, computeScrollY } from './compute-scroll';
 import { measureElement } from './utils';
-import { computeScrollY, computeScrollX } from './compute-scroll';
+
+import type { ScrollView } from 'react-native';
 
 export type Insets = {
     top?: number;
@@ -64,20 +67,18 @@ export const DefaultHOCConfig: FullHOCConfig = {
     refPropName: 'ref',
     // The method to extract the raw scrollview node from the ref we got, if it's not directly the scrollview itself
     getScrollViewNode: (scrollView: ScrollView) => {
-        // for animated components, ref.getNode() is deprecated since RN 0.62
-        // See https://github.com/facebook/react-native/commit/66e72bb4e00aafbcb9f450ed5db261d98f99f82a
-        const shouldCallGetNode =
-            !Platform.constants ||
-            (Platform.constants.reactNativeVersion.major === 0 && Platform.constants.reactNativeVersion.minor < 62);
-        // getNode() permit to support Animated.ScrollView,
-        // see https://stackoverflow.com/questions/42051368/scrollto-is-undefined-on-animated-scrollview/48786374
-        // @ts-ignore
-        if (scrollView.getNode && shouldCallGetNode) {
-            // @ts-ignore
-            return scrollView.getNode();
-        } else {
-            return scrollView;
+        // scrollView.getNode() was used for Animated.ScrollView components but is deprecated since RN 0.62.
+        // See: https://github.com/facebook/react-native/commit/66e72bb4e00aafbcb9f450ed5db261d98f99f82a
+        // We only attempt to call it if it exists and we're on an older RN version.
+        const rnVersion = Platform.constants.reactNativeVersion;
+        const isPreRN062 = (rnVersion as any) ? rnVersion.major === 0 && rnVersion.minor < 62 : false;
+
+        // Check if getNode exists on the scrollView object (common for Animated.ScrollView)
+        // and if we are on a React Native version where it was recommended.
+        if (typeof (scrollView as any).getNode === 'function' && isPreRN062) {
+            return (scrollView as any).getNode(); // Call getNode if applicable
         }
+        return scrollView; // Otherwise, return the scrollView directly
     },
     // Default value for throttling, can be overriden by user with props
     scrollEventThrottle: 16,

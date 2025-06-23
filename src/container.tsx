@@ -1,9 +1,13 @@
-import React, { ReactNode } from 'react';
-import { View, ViewProps } from 'react-native';
-import { throttle } from './utils';
-import { PartialOptions, OptionKeys, OptionKey } from './config';
-import { ScrollIntoViewAPI } from './api';
+import React, { forwardRef, useCallback, useEffect, useRef } from 'react';
+import { View } from 'react-native';
+
 import { APIConsumer } from './context';
+import { throttle } from './utils';
+
+import type { ScrollIntoViewAPI } from './api';
+import type { PartialOptions } from './config';
+import type { ReactNode } from 'react';
+import type { ViewProps } from 'react-native';
 
 const showNotInContextWarning = throttle(() => {
     console.warn(
@@ -24,97 +28,133 @@ type ContainerProps = {
 } & PartialOptions &
     ViewProps;
 
-// Modern functional ContainerBase with proper previous value tracking and default props
-export const ContainerBase = React.forwardRef<View, ContainerProps>((props, ref) => {
-    // Default props
+export const ContainerBase = forwardRef<View, ContainerProps>((props, ref) => {
     const {
         enabled = true,
-        animated = true,
-        immediate = false,
         onMount = true,
         onUpdate = true,
         scrollIntoViewKey,
         scrollIntoViewOptions,
         scrollIntoViewAPI,
         children,
+        align,
+        animated,
+        immediate,
+        insets,
+        measureElement,
+        computeScrollY,
+        computeScrollX,
         ...rest
     } = props;
 
-    const container = React.useRef<View>(null);
-    const unmounted = React.useRef(false);
+    const containerRef = useRef<View>(null);
+    const unmounted = useRef(false);
+    const prevProps = useRef({ enabled, scrollIntoViewKey });
 
-    // Track previous values for enabled and scrollIntoViewKey
-    const prevEnabled = React.useRef<boolean | undefined>(enabled);
-    const prevScrollIntoViewKey = React.useRef<typeof scrollIntoViewKey>(scrollIntoViewKey);
-
-    React.useEffect(() => {
-        prevEnabled.current = enabled;
-        prevScrollIntoViewKey.current = scrollIntoViewKey;
-    }, [enabled, scrollIntoViewKey]);
-
-    const ensureApiProvided = React.useCallback(() => {
-        if (scrollIntoViewAPI) {
-            return true;
-        } else {
+    const ensureApiProvided = useCallback(() => {
+        if (!scrollIntoViewAPI) {
             showNotInContextWarning();
             return false;
         }
+        return true;
     }, [scrollIntoViewAPI]);
 
-    const getPropsOptions = React.useCallback(() => {
-        const options: PartialOptions = {
+    const getPropsOptions = useCallback(() => {
+        const COMPONENT_DEFAULT_ANIMATED = true;
+        const COMPONENT_DEFAULT_IMMEDIATE = false;
+
+        const mergedOptions: PartialOptions = {
+            animated: COMPONENT_DEFAULT_ANIMATED,
+            immediate: COMPONENT_DEFAULT_IMMEDIATE,
             ...scrollIntoViewOptions
         };
-        OptionKeys.forEach((optionKey: OptionKey) => {
-            const optionValue = (props as any)[optionKey];
-            if (typeof optionValue !== 'undefined') {
-                options[optionKey] = optionValue;
-            }
-        });
-        return options;
-    }, [scrollIntoViewOptions, props]);
 
-    const scrollIntoView = React.useCallback(
-        (providedOptions: PartialOptions = {}) => {
-            if (unmounted.current) {
-                return;
+        const optionProps: (keyof PartialOptions)[] = [
+            'animated',
+            'immediate',
+            'align',
+            'insets',
+            'measureElement',
+            'computeScrollY',
+            'computeScrollX'
+        ];
+
+        const propsToMerge = {
+            animated,
+            immediate,
+            align,
+            insets,
+            measureElement,
+            computeScrollY,
+            computeScrollX
+        };
+
+        for (const key of optionProps) {
+            if (propsToMerge[key] !== undefined) {
+                (mergedOptions as any)[key] = propsToMerge[key];
             }
-            if (ensureApiProvided()) {
-                const options = {
-                    ...getPropsOptions(),
-                    ...providedOptions
-                };
-                scrollIntoViewAPI!.scrollIntoView(container.current!, options);
+        }
+
+        return mergedOptions;
+    }, [scrollIntoViewOptions, animated, immediate, align, insets, measureElement, computeScrollY, computeScrollX]);
+
+    const scrollIntoView = useCallback(
+        (providedOptions: PartialOptions = {}) => {
+            if (unmounted.current || !ensureApiProvided()) return;
+            const currentContainerRef = containerRef.current;
+            if (!currentContainerRef) return;
+            const options = { ...getPropsOptions(), ...providedOptions };
+            if (scrollIntoViewAPI) {
+                scrollIntoViewAPI.scrollIntoView(currentContainerRef, options);
             }
         },
         [ensureApiProvided, getPropsOptions, scrollIntoViewAPI]
     );
 
-    React.useEffect(() => {
-        setTimeout(() => {
-            onMount && enabled && scrollIntoView();
-        }, 0);
+    useEffect(() => {
+        let timerId: number | undefined;
+        if (onMount && enabled) {
+            timerId = setTimeout(() => {
+                if (!unmounted.current) {
+                    scrollIntoView();
+                }
+            }, 0);
+        }
+        return () => {
+            if (timerId) {
+                clearTimeout(timerId);
+            }
+        };
+    }, [enabled, onMount, scrollIntoView]);
+
+    useEffect(() => {
+        const prevEnabled = prevProps.current.enabled;
+        const prevKey = prevProps.current.scrollIntoViewKey;
+
+        // Determine if an update scroll is needed
+        // Scroll if onUpdate is true, component is currently enabled, AND
+        // (it was previously disabled OR the key changed while it was enabled)
+        const needsUpdateScroll = onUpdate && enabled && (!prevEnabled || scrollIntoViewKey !== prevKey);
+
+        if (needsUpdateScroll) {
+            scrollIntoView();
+        }
+
+        // Update prevProps.current for the next render/effect cycle if relevant props changed.
+        // This ensures that for the *next* run of this effect, prevProps.current has the values from the end of *this* run.
+        if (prevEnabled !== enabled || prevKey !== scrollIntoViewKey) {
+            prevProps.current = { enabled, scrollIntoViewKey };
+        }
+    }, [enabled, onUpdate, scrollIntoViewKey, scrollIntoView]);
+
+    useEffect(() => {
         return () => {
             unmounted.current = true;
         };
     }, []);
 
-    React.useEffect(() => {
-        // Only run on updates
-        const hasBeenEnabled = enabled && !prevEnabled.current;
-        if (onUpdate && hasBeenEnabled) {
-            scrollIntoView();
-            return;
-        }
-        const keyHasChanged = scrollIntoViewKey !== prevScrollIntoViewKey.current;
-        if (onUpdate && enabled && keyHasChanged) {
-            scrollIntoView();
-            return;
-        }
-    }, [enabled, onUpdate, scrollIntoViewKey, scrollIntoView]);
-
     return (
-        <View {...rest} ref={ref || container} collapsable={false}>
+        <View {...rest} ref={ref || containerRef} collapsable={false}>
             {children}
         </View>
     );
@@ -122,10 +162,10 @@ export const ContainerBase = React.forwardRef<View, ContainerProps>((props, ref)
 
 ContainerBase.displayName = 'ContainerBase';
 
-export const Container = React.forwardRef<View, ContainerProps>((props, ref) => (
+export const Container = forwardRef<View, ContainerProps>((props, ref) => (
     <APIConsumer>
-        {(scrollIntoViewAPI) =>
-            scrollIntoViewAPI ? <ContainerBase ref={ref} {...props} scrollIntoViewAPI={scrollIntoViewAPI} /> : null
+        {(apiFromContext) =>
+            apiFromContext && <ContainerBase ref={ref} {...props} scrollIntoViewAPI={apiFromContext} />
         }
     </APIConsumer>
 ));
