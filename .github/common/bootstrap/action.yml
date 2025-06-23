@@ -17,7 +17,3 @@ runs:
         - name: 📦 Install dependencies
           shell: bash
           run: pnpm install --frozen-lockfile
-
-        - name: 🤖 Generate code
-          shell: bash
-          run: pnpm run generate
