@@ -3,10 +3,10 @@ import { measureElement } from './utils';
 import { computeScrollY, computeScrollX } from './compute-scroll';
 
 export type Insets = {
-    top: number;
-    bottom: number;
-    left: number;
-    right: number;
+    top?: number;
+    bottom?: number;
+    left?: number;
+    right?: number;
 };
 
 export type Align = 'auto' | 'start' | 'end' | 'center';
