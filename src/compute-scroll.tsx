@@ -26,7 +26,13 @@ export const computeScrollY = (
         scrollY,
         viewTopY,
         viewBottomY,
-        insets
+        insets: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            ...insets
+        }
     };
     switch (align) {
         case 'auto':
@@ -97,7 +103,13 @@ export const computeScrollX = (
         scrollX,
         viewLeftX,
         viewRightX,
-        insets
+        insets: {
+            top: 0,
+            right: 0,
+            bottom: 0,
+            left: 0,
+            ...insets
+        }
     };
     switch (align) {
         case 'auto':
