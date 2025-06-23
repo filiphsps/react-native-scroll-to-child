@@ -119,6 +119,11 @@
                             "release": false
                         },
                         {
+                            "type": "chore",
+                            "subject": "deps",
+                            "release": false
+                        },
+                        {
                             "type": "*",
                             "release": "patch"
                         },
