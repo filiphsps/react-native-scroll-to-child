@@ -2,7 +2,7 @@
 
 [![npm downloads](https://img.shields.io/npm/dm/react-native-scroll-to-child.svg)](https://www.npmjs.com/package/react-native-scroll-to-child)
 [![npm version](https://img.shields.io/npm/v/react-native-scroll-to-child.svg?style=flat)](https://www.npmjs.com/package/react-native-scroll-to-child)
-[![GitHub checks](https://img.shields.io/github/checks-status/filiphsps/react-native-scroll-to-child/master.svg?style=flat)](https://github.com/filiphsps/react-native-scroll-to-child)
+[![CI](https://github.com/filiphsps/react-native-scroll-to-child/actions/workflows/ci.yml/badge.svg)](https://github.com/filiphsps/react-native-scroll-to-child/actions/workflows/ci.yml)
 
 Scroll a ReactNative View ref into the visible portion of a `ScrollView`.
 
@@ -12,11 +12,11 @@ pnpm install react-native-scroll-to-child
 
 ---
 
-# Why fork?
+## Why fork?
 
 The [original project](https://github.com/slorber/react-native-scroll-into-view) ain't really maintained anymore and I needed horizontal scroll support. I might decide to rewrite some of the more dated parts in the future; but for now this works well enough.
 
-# Features:
+## Features:
 
 - Declarative component API
 - Imperative hook API
@@ -25,9 +25,9 @@ The [original project](https://github.com/slorber/react-native-scroll-into-view)
 - Insets
 - Supports **both** vertical and horizontal ScrollViews.
 - Typescript definitions
-- Support for composition/refs/other ScrollView wrappers (`Animated.ScrollView`, `react-native-keyboard-aware-scroll-view`, `glamorous-native`...)
+- Support for composition/refs/other ScrollView wrappers (`Animated.ScrollView`, `react-native-keyboard-aware-scroll-view`, `glamorous-native`, etc...)
 
-# Minimal hooks example
+## Minimal hooks example
 
 ```tsx
 import { View, Text, ScrollView } from 'react-native';
@@ -67,7 +67,7 @@ function MyScreenContent() {
 }
 ```
 
-# API
+## API
 
 ```tsx
 import {
@@ -167,7 +167,7 @@ const CustomScrollView = wrapScrollViewConfigured({
 
 All these hoc configurations can also be provided to the `CustomScrollView` as props.
 
-# License
+## License
 
 MIT
 
