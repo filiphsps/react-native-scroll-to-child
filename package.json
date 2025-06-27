@@ -89,7 +89,7 @@
         "json": "11.0.0",
         "lodash": "4.17.21",
         "prettier-eslint": "16.4.2",
-        "prettier": "3.6.1",
+        "prettier": "3.6.2",
         "react-native": "0.80.0",
         "react-test-renderer": "19.1.0",
         "react": "19.1.0",
