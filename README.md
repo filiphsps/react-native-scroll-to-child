@@ -14,7 +14,7 @@ pnpm install react-native-scroll-to-child
 
 ## Why fork?
 
-The [original project](https://github.com/slorber/react-native-scroll-into-view) ain't really maintained anymore and I needed horizontal scroll support. I might decide to rewrite some of the more dated parts in the future; but for now this works well enough.
+The [original project](https://github.com/slorber/react-native-scroll-into-view) ain't really maintained anymore and I needed horizontal scroll support. I might decide to rewrite some of the more dated parts in the future; but for now this works well enough. Go star the original too if this package is useful to you :)
 
 ## Features:
 
