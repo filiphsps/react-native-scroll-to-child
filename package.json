@@ -63,7 +63,7 @@
         "@eslint/eslintrc": "3.3.1",
         "@eslint/js": "9.30.0",
         "@jest/globals": "30.0.3",
-        "@react-native/babel-preset": "0.80.0",
+        "@react-native/babel-preset": "0.80.1",
         "@semantic-release/changelog": "6.0.3",
         "@semantic-release/commit-analyzer": "13.0.1",
         "@semantic-release/git": "10.0.1",
