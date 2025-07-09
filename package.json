@@ -1,6 +1,6 @@
 {
     "name": "react-native-scroll-to-child",
-    "packageManager": "pnpm@10.12.4",
+    "packageManager": "pnpm@10.13.1",
     "private": false,
     "version": "0.0.1",
     "description": "Scroll any child of a ScrollView into the viewport",
