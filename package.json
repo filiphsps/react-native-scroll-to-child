@@ -90,7 +90,7 @@
         "lodash": "4.17.21",
         "prettier-eslint": "16.4.2",
         "prettier": "3.6.2",
-        "react-native": "0.80.1",
+        "react-native": "0.80.2",
         "react-test-renderer": "19.1.0",
         "react": "19.1.0",
         "rimraf": "6.0.1",
