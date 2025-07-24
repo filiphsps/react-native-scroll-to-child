@@ -28,8 +28,8 @@ importers:
         specifier: 30.0.5
         version: 30.0.5
       '@react-native/babel-preset':
-        specifier: 0.80.1
-        version: 0.80.1(@babel/core@7.27.4)
+        specifier: 0.80.2
+        version: 0.80.2(@babel/core@7.27.4)
       '@semantic-release/changelog':
         specifier: 6.0.3
         version: 6.0.3(semantic-release@24.2.7(typescript@5.8.3))
@@ -934,18 +934,24 @@ packages:
     resolution: {integrity: sha512-T3C8OthBHfpFIjaGFa0q6rc58T2AsJ+jKAa+qPquMKBtYGJMc75WgNbk/ZbPBxeity6FxZsmg3bzoUaWQo4Mow==}
     engines: {node: '>=18'}
 
-  '@react-native/babel-plugin-codegen@0.80.1':
-    resolution: {integrity: sha512-A0xTmTiHamvKL2AtkUQqT+5WcLMFLig/62STT5Aa/CyxfqpkmSyKbHwSUEiMZ744SARG8JEG+D++dgy6steqag==}
+  '@react-native/babel-plugin-codegen@0.80.2':
+    resolution: {integrity: sha512-q0XzdrdDebPwt5tEi2MSo90kpEcs4e3ZZskrbxda081DEjHhgm3bbIxAiW3BxY6adOf/eXxgOhKEGWTfG2me6g==}
     engines: {node: '>=18'}
 
-  '@react-native/babel-preset@0.80.1':
-    resolution: {integrity: sha512-SItN0D3ETd9mHahkyLDq3eOg2MydSN1Bod2WEhnVfVxmkK1YFmXtS2MvW+/ruce5kW6V5zwyGR3KIi4DjUMC4A==}
+  '@react-native/babel-preset@0.80.2':
+    resolution: {integrity: sha512-vLtS8YJV0nAnOZ8kVJBaXzHlwvoMXpYB4/NBR1BuAesE+WTiAkXpDFnKSkXBHoS03d/5HYNVcW8VRaB2f0Jmtw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@babel/core': '*'
 
   '@react-native/codegen@0.80.1':
     resolution: {integrity: sha512-CFhOYkXmExOeZDZnd0UJCK9A4AOSAyFBoVgmFZsf+fv8JqnwIx/SD6RxY1+Jzz9EWPQcH2v+WgwPP/4qVmjtKw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@babel/core': '*'
+
+  '@react-native/codegen@0.80.2':
+    resolution: {integrity: sha512-eYad9ex9/RS6oFbbpu6LxsczktbhfJbJlTvtRlcWLJjJbFTeNr5Q7CgBT2/m5VtpxnJ/0YdmZ9vdazsJ2yp9kw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@babel/core': '*'
@@ -5558,15 +5564,15 @@ snapshots:
 
   '@react-native/assets-registry@0.80.1': {}
 
-  '@react-native/babel-plugin-codegen@0.80.1(@babel/core@7.27.4)':
+  '@react-native/babel-plugin-codegen@0.80.2(@babel/core@7.27.4)':
     dependencies:
       '@babel/traverse': 7.27.4
-      '@react-native/codegen': 0.80.1(@babel/core@7.27.4)
+      '@react-native/codegen': 0.80.2(@babel/core@7.27.4)
     transitivePeerDependencies:
       - '@babel/core'
       - supports-color
 
-  '@react-native/babel-preset@0.80.1(@babel/core@7.27.4)':
+  '@react-native/babel-preset@0.80.2(@babel/core@7.27.4)':
     dependencies:
       '@babel/core': 7.27.4
       '@babel/plugin-proposal-export-default-from': 7.27.1(@babel/core@7.27.4)
@@ -5609,7 +5615,7 @@ snapshots:
       '@babel/plugin-transform-typescript': 7.27.1(@babel/core@7.27.4)
       '@babel/plugin-transform-unicode-regex': 7.27.1(@babel/core@7.27.4)
       '@babel/template': 7.27.2
-      '@react-native/babel-plugin-codegen': 0.80.1(@babel/core@7.27.4)
+      '@react-native/babel-plugin-codegen': 0.80.2(@babel/core@7.27.4)
       babel-plugin-syntax-hermes-parser: 0.28.1
       babel-plugin-transform-flow-enums: 0.0.2(@babel/core@7.27.4)
       react-refresh: 0.14.2
@@ -5617,6 +5623,15 @@ snapshots:
       - supports-color
 
   '@react-native/codegen@0.80.1(@babel/core@7.27.4)':
+    dependencies:
+      '@babel/core': 7.27.4
+      glob: 11.0.3
+      hermes-parser: 0.28.1
+      invariant: 2.2.4
+      nullthrows: 1.1.1
+      yargs: 17.7.2
+
+  '@react-native/codegen@0.80.2(@babel/core@7.27.4)':
     dependencies:
       '@babel/core': 7.27.4
       glob: 11.0.3
