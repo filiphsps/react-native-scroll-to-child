@@ -46,8 +46,8 @@ importers:
         specifier: 14.0.3
         version: 14.0.3(semantic-release@24.2.7(typescript@5.8.3))
       '@testing-library/react-native':
-        specifier: 13.2.1
-        version: 13.2.1(jest@30.0.5(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.8.3)))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 13.2.2
+        version: 13.2.2(jest@30.0.5(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.8.3)))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
@@ -1067,8 +1067,8 @@ packages:
   '@sinonjs/fake-timers@13.0.5':
     resolution: {integrity: sha512-36/hTbH2uaWuGVERyC6da9YwGWnzUZXuPro/F2LfsdOsLnCojz/iSH8MxUt/FD2S5XBSVPhmArFUXcpCQ2Hkiw==}
 
-  '@testing-library/react-native@13.2.1':
-    resolution: {integrity: sha512-gryBmOI/PFvEJmMy6CNruulxXTW3zs7YyZHJEUlVYEt9vWo5v09FvV0RlYHurxs3yx3ZSc0vOsQOhld5a5SfPg==}
+  '@testing-library/react-native@13.2.2':
+    resolution: {integrity: sha512-QALF+nZ4BSXBOtUs5ljLnaHKuyR+ykakYB3RYwciSrllhgZkbUjXeGkugCxrmEtQ2BUZnYVRY7AEGboMP/hucg==}
     engines: {node: '>=18'}
     peerDependencies:
       jest: '>=29.0.0'
@@ -5790,7 +5790,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@testing-library/react-native@13.2.1(jest@30.0.5(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.8.3)))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@testing-library/react-native@13.2.2(jest@30.0.5(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.8.3)))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       chalk: 4.1.2
       jest-matcher-utils: 30.0.5
