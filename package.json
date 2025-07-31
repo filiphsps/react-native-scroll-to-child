@@ -109,7 +109,7 @@
                 "@semantic-release/commit-analyzer",
                 {
                     "preset": "angular",
-                    "releaseRules": [,
+                    "releaseRules": [
                         {
                             "type": "*",
                             "release": false
