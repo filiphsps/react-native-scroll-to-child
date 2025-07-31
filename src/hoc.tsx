@@ -16,16 +16,17 @@ type HOCProps = ScrollViewProps & {
     scrollIntoViewOptions?: PartialOptions;
     scrollEventThrottle?: number;
     contentOffset?: { x: number; y: number };
+    ref?: React.RefObject<ScrollView | null>;
 };
 
-export type WrappableComponent = ComponentType<ScrollViewProps>;
-export type WrappedComponent = ComponentType<HOCProps>;
+export type WrappableScrollView = ComponentType<ScrollViewProps>;
+export type WrappedScrollView = ComponentType<HOCProps>;
 
 export const wrapScrollViewHOC = (
-    ScrollViewComp: WrappableComponent,
+    ScrollViewComp: WrappableScrollView,
     config: PartialHOCConfig = {}
-): WrappedComponent => {
-    const { refPropName, getScrollViewNode, scrollEventThrottle, options } = normalizeHOCConfig(config);
+): WrappedScrollView => {
+    const { getScrollViewNode, scrollEventThrottle, options } = normalizeHOCConfig(config);
 
     const ScrollViewWrapper = forwardRef<ScrollView, HOCProps>((props, ref) => {
         const internalRef = useRef<ScrollView>(null);
@@ -51,7 +52,7 @@ export const wrapScrollViewHOC = (
 
         const scrollViewProps = {
             ...props,
-            [refPropName]: internalRef,
+            ref: internalRef,
             scrollEventThrottle: props.scrollEventThrottle || scrollEventThrottle,
             onScroll: (Animated as any).forkEvent(props.onScroll, handleScroll)
         };

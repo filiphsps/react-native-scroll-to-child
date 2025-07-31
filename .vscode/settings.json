@@ -1,3 +1,6 @@
 {
-    "npm.packageManager": "pnpm"
+    "npm.packageManager": "pnpm",
+    "cSpell.words": [
+        "Wrappable"
+    ]
 }

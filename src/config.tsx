@@ -54,7 +54,6 @@ export const normalizeOptions = (options: PartialOptions = {}, fallbackOptions: 
 });
 
 export type FullHOCConfig = {
-    refPropName: string;
     getScrollViewNode: (scrollView: ScrollView) => ScrollView;
     scrollEventThrottle: 16;
     options: PartialOptions;
@@ -62,10 +61,7 @@ export type FullHOCConfig = {
 export type PartialHOCConfig = Partial<FullHOCConfig>;
 
 export const DefaultHOCConfig: FullHOCConfig = {
-    // The ref propName to pass to the wrapped component
-    // If you use something like glamorous-native, you can use "innerRef" for example
-    refPropName: 'ref',
-    // The method to extract the raw scrollview node from the ref we got, if it's not directly the scrollview itself
+    // The method to extract the raw ScrollView node from the ref we got, if it's not directly the ScrollView itself
     getScrollViewNode: (scrollView: ScrollView) => {
         // scrollView.getNode() was used for Animated.ScrollView components but is deprecated since RN 0.62.
         // See: https://github.com/facebook/react-native/commit/66e72bb4e00aafbcb9f450ed5db261d98f99f82a
@@ -80,9 +76,9 @@ export const DefaultHOCConfig: FullHOCConfig = {
         }
         return scrollView; // Otherwise, return the scrollView directly
     },
-    // Default value for throttling, can be overriden by user with props
+    // Default value for throttling, can be overridden by user with props
     scrollEventThrottle: 16,
-    // ScrollIntoView options, can be offeriden by <ScrollIntoView> comp or imperative usage
+    // ScrollIntoView options, can be offered by <ScrollIntoView /> comp or imperative usage
     options: DefaultOptions
 };
 

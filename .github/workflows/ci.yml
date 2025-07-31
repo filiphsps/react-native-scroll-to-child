@@ -15,8 +15,6 @@ on:
 
 env:
     CI: true
-    TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-    TURBO_TEAM: ${{ vars.TURBO_TEAM }}
 
 permissions:
     contents: read
@@ -51,6 +49,35 @@ jobs:
             - name: ✅ Typecheck
               run: pnpm run typecheck
 
+    test:
+        name: 🧪 Test
+        needs: [lint, typecheck]
+        timeout-minutes: 25
+        runs-on: ubuntu-latest
+        steps:
+            - name: 🕶️ Checkout repository
+              uses: actions/checkout@v4
+
+            - name: 🚀 Bootstrap
+              uses: ./.github/common/bootstrap
+
+            - name: 🧪 Test
+              run: pnpm run test --coverage
+
+            - name: 🦺 Codecov Coverage Reports
+              if: ${{ !cancelled() }}
+              uses: codecov/codecov-action@v5.4.3
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  slug: filiphsps/react-native-scroll-to-child
+
+            - name: 🦺 Upload test results to Codecov
+              if: ${{ !cancelled() }}
+              uses: codecov/test-results-action@v1
+              with:
+                  token: ${{ secrets.CODECOV_TOKEN }}
+                  slug: filiphsps/react-native-scroll-to-child
+
     build:
         name: 🔨 Build
         needs: [lint, typecheck]
@@ -76,27 +103,6 @@ jobs:
                   if-no-files-found: error
                   name: build-artifact
                   path: build/
-
-    test:
-        name: 🧪 Test
-        needs: [build]
-        timeout-minutes: 25
-        runs-on: ubuntu-latest
-        steps:
-            - name: 🕶️ Checkout repository
-              uses: actions/checkout@v4
-
-            - name: 🚀 Bootstrap
-              uses: ./.github/common/bootstrap
-
-            - name: 📥 Download build artifact
-              uses: actions/download-artifact@v4
-              with:
-                  name: build-artifact
-                  path: build/
-
-            - name: 🧪 Test
-              run: pnpm run test
 
     release:
         name: 🚢 Release

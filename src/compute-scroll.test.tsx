@@ -1,3 +1,5 @@
+import { describe, expect, it } from '@jest/globals';
+
 import { computeScrollX, computeScrollY } from './compute-scroll';
 
 import type { Insets } from './config';

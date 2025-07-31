@@ -1,3 +1,5 @@
+import { beforeEach, describe, expect, it } from '@jest/globals';
+
 import { scrollIntoView as actualGlobalScrollIntoView, ScrollIntoViewAPI } from './api';
 import * as apiModule from './api';
 import * as config from './config';
