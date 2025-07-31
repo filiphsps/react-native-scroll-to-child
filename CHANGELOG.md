@@ -1,3 +1,15 @@
+# [0.2.0](https://github.com/filiphsps/react-native-scroll-to-child/compare/v0.1.0...v0.2.0) (2025-07-31)
+
+
+### Features
+
+* Switch from `tsc` to `tsup` ([802335e](https://github.com/filiphsps/react-native-scroll-to-child/commit/802335ec457c2b5f0015813e38d2b689db26d794))
+
+
+### BREAKING CHANGES
+
+* We're now building and bundle the package properly which might break things for you if you directly accessed/imported non-exposed files previously.
+
 # [0.1.0](https://github.com/filiphsps/react-native-scroll-to-child/compare/v0.0.6...v0.1.0) (2025-07-31)
 
 
