@@ -1,18 +1,30 @@
 {
+    "$schema": "https://json.schemastore.org/package.json",
     "name": "react-native-scroll-to-child",
     "packageManager": "pnpm@10.14.0",
     "private": false,
-    "version": "0.0.6",
+    "version": "0.1.0",
     "description": "Scroll a ScrollView's child into the visible viewport",
-    "types": "build/index.d.ts",
-    "main": "build/index.js",
+    "main": "./dist/index.cjs",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
     "type": "module",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js",
+            "module": "./dist/index.js",
+            "require": "./dist/index.cjs"
+        }
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/filiphsps/react-native-scroll-to-child.git"
     },
     "files": [
-        "build"
+        "dist",
+        "README.md",
+        "LICENSE"
     ],
     "keywords": [
         "react-native",
@@ -39,10 +51,8 @@
     },
     "homepage": "https://github.com/filiphsps/react-native-scroll-to-child#README",
     "scripts": {
-        "start": "concurrently pnpm:start:*",
-        "start:typecheck": "tsc --noEmit --watch",
-        "build": "tsc",
-        "clear": "rimraf build",
+        "build": "tsup",
+        "watch": "tsup --watch",
         "prepublish": "pnpm build && pnpm configure:publish",
         "configure:publish": "json -I -f package.json -e 'this.main=\"build/index.js\"'",
         "test": "jest --passWithNoTests",
@@ -97,6 +107,7 @@
         "semantic-release": "24.2.7",
         "ts-jest": "29.4.0",
         "ts-node": "10.9.2",
+        "tsup": "8.5.0",
         "typescript": "5.8.3"
     },
     "release": {

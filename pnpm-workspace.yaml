@@ -1,6 +1,10 @@
 packages:
     - .
 
+onlyBuiltDependencies:
+    - esbuild
+    - unrs-resolver
+
 overrides:
-    rimraf: "$rimraf"
     glob: "11"
+    rimraf: $rimraf

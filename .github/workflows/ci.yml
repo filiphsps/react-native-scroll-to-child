@@ -102,7 +102,7 @@ jobs:
                   compression-level: 0
                   if-no-files-found: error
                   name: build-artifact
-                  path: build/
+                  path: dist/
 
     release:
         name: 🚢 Release
@@ -128,7 +128,7 @@ jobs:
               uses: actions/download-artifact@v4
               with:
                   name: build-artifact
-                  path: build/
+                  path: dist/
 
             - name: 🔬 Verify integrity
               run: npm audit signatures

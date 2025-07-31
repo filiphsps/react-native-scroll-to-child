@@ -4,8 +4,7 @@
         "allowJs": false,
         "allowSyntheticDefaultImports": true,
         "baseUrl": ".",
-        "rootDir": "./src",
-        "composite": true,
+        "rootDir": ".",
         "declaration": true,
         "declarationMap": true,
         "downlevelIteration": false,
@@ -38,7 +37,7 @@
         "strictFunctionTypes": true,
         "strictNullChecks": true,
         "strictPropertyInitialization": true,
-        "tsBuildInfoFile": "build/tsconfig.tsbuildinfo",
+        "tsBuildInfoFile": ".tsbuildinfo",
         "typeRoots": [
             "./node_modules/@types",
             "./src/@types"
@@ -53,9 +52,9 @@
         "src"
     ],
     "exclude": [
-        "build/",
+        "build",
         "node_modules",
-        "**/*.test.ts",
-        "**/*.test.tsx",
+        "src/**/*.test.ts",
+        "src/**/*.test.tsx"
     ]
 }
