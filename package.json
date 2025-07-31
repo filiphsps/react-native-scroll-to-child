@@ -128,11 +128,6 @@
                             "release": "minor"
                         },
                         {
-                            "type": "breaking",
-                            "breaking": true,
-                            "release": "minor"
-                        },
-                        {
                             "type": "feat",
                             "release": "patch"
                         }
