@@ -1,19 +1,21 @@
 # react-native-scroll-to-child
 
+Programmatically scroll a React Native `ScrollView`'s child into view, either vertically, horizontally, or both.
+
 [![npm downloads](https://img.shields.io/npm/dm/react-native-scroll-to-child.svg)](https://www.npmjs.com/package/react-native-scroll-to-child)
 [![npm version](https://img.shields.io/npm/v/react-native-scroll-to-child.svg?style=flat)](https://www.npmjs.com/package/react-native-scroll-to-child)
-[![CI](https://github.com/filiphsps/react-native-scroll-to-child/actions/workflows/ci.yml/badge.svg)](https://github.com/filiphsps/react-native-scroll-to-child/actions/workflows/ci.yml)
+[![CI](https://img.shields.io/github/actions/workflow/status/filiphsps/react-native-scroll-to-child/ci.yml)](https://github.com/filiphsps/react-native-scroll-to-child/actions/workflows/ci.yml)
+[![codecov](https://img.shields.io/codecov/c/github/filiphsps/react-native-scroll-to-child?token=wTfrpJQEhV)](https://codecov.io/gh/filiphsps/react-native-scroll-to-child)
 
-Scroll a React Native `View` ref into the visible portion of a `ScrollView`.
+> [!NOTE]
+> **Why a hard-fork?** The [original project](https://github.com/slorber/react-native-scroll-into-view) is not actively maintained, and I needed to add support for horizontal scrolling. This fork also aims to improve code readability and modernization. If you find this package useful, please consider starring the original repository as well!
+
+
+## Installation
 
 ```bash
 pnpm install react-native-scroll-to-child
 ```
-
----
-
-> [!NOTE]
-> **Why a hard-fork?** The [original project](https://github.com/slorber/react-native-scroll-into-view) is not actively maintained, and I needed to add support for horizontal scrolling. This fork also aims to improve code readability and modernization. If you find this package useful, please consider starring the original repository as well!
 
 ## Features
 
@@ -28,7 +30,7 @@ pnpm install react-native-scroll-to-child
 
 ## Examples
 
-### Declarative Component Example
+### Declarative Component
 
 This is the simplest way to use the library. Wrap the child you want to scroll to in the `ScrollIntoView` component and control its state with a boolean.
 
@@ -54,7 +56,7 @@ function MyScreen() {
 }
 ```
 
-### Imperative Hook Example
+### Imperative Hook
 
 For more control, you can use the `useScrollIntoView` hook to scroll a `ref` into view imperatively.
 
@@ -104,14 +106,14 @@ function MyScreenContent() {
 
 ## API
 
-### `wrapScrollView(ScrollViewComponent, options?)`
+### `wrapScrollView(ScrollViewComponent, options?)` Higher-Order Component (HOC)
 
 This higher-order component wraps your `ScrollView` to provide the necessary context for scrolling.
 
 - `ScrollViewComponent`: The `ScrollView` component to wrap (e.g., `ScrollView`, `Animated.ScrollView`).
 - `options` (optional): Default options for all `scrollIntoView` calls within this `ScrollView`.
 
-### `useScrollIntoView()`
+### `useScrollIntoView()` Hook
 
 A hook that returns the `scrollIntoView` function.
 
@@ -126,7 +128,9 @@ A component that wraps a child and scrolls it into view based on the `show` prop
 - `show`: A boolean that, when `true`, scrolls the child into view.
 - `options` (optional): Override the default options for this component.
 
-### `scrollIntoView` Options
+
+<details>
+<summary><h4><code>ScrollIntoView</code> Options</h4></summary>
 
 | Option             | Type                                                               | Default      | Description                                                                                             |
 | ------------------ | ------------------------------------------------------------------ | ------------ | ------------------------------------------------------------------------------------------------------- |
@@ -137,12 +141,15 @@ A component that wraps a child and scrolls it into view based on the `show` prop
 | `computeScrollY`   | `(scrollViewLayout, viewLayout, scrollY, insets, align) => number` | `undefined`  | Advanced: Override the default vertical scroll calculation.                                             |
 | `computeScrollX`   | `(scrollViewLayout, viewLayout, scrollX, insets, align) => number` | `undefined`  | Advanced: Override the default horizontal scroll calculation.                                           |
 | `measureElement`   | `(viewRef) => Promise<LayoutRectangle>`                            | `undefined`  | Advanced: Override how the element's layout is measured.                                                |
+</details>
 
-## Advanced Usage
+### Advanced Usage
 
 You can provide custom configuration to `wrapScrollView` for advanced use cases, such as when using a custom `ScrollView` wrapper.
 
 ```tsx
+// All HOC configurations can also be passed as props to the wrapped `ScrollView` component.
+
 const CustomScrollView = wrapScrollView(MyCustomScrollView, {
   // Provide default options for all scroll calls
   options: {
@@ -155,11 +162,3 @@ const CustomScrollView = wrapScrollView(MyCustomScrollView, {
   scrollEventThrottle: 16,
 });
 ```
-
-All HOC configurations can also be passed as props to the wrapped `ScrollView` component.
-
-## License
-
-This project is licensed under the MIT License.
-
-Some code is inspired by the contribution of @sebasgarcep for an initial `scrollIntoView` implementation in [react-native-keyboard-aware-scroll-view](https://github.com/APSL/react-native-keyboard-aware-scroll-view).
