@@ -130,10 +130,6 @@
                         {
                             "type": "*",
                             "release": false
-                        },
-                        {
-                            "subject": "*",
-                            "release": false
                         }
                     ],
                     "parserOpts": {
