@@ -109,14 +109,10 @@
                 "@semantic-release/commit-analyzer",
                 {
                     "preset": "angular",
-                    "releaseRules": [
+                    "releaseRules": [,
                         {
-                            "breaking": true,
-                            "release": "minor"
-                        },
-                        {
-                            "type": "feat",
-                            "release": "patch"
+                            "type": "*",
+                            "release": false
                         },
                         {
                             "type": "deps",
@@ -128,8 +124,12 @@
                             "release": false
                         },
                         {
-                            "type": "*",
-                            "release": false
+                            "breaking": true,
+                            "release": "minor"
+                        },
+                        {
+                            "type": "feat",
+                            "release": "patch"
                         }
                     ],
                     "parserOpts": {
