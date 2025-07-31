@@ -1,3 +1,29 @@
+# [0.1.0](https://github.com/filiphsps/react-native-scroll-to-child/compare/v0.0.6...v0.1.0) (2025-07-31)
+
+
+### breaking
+
+* Remove custom `ref` prop name ([a4fa7ec](https://github.com/filiphsps/react-native-scroll-to-child/commit/a4fa7ecfd5a81a4fe92b755ec6489db4ccd4c78b))
+
+
+### Bug Fixes
+
+* Try and fix releases ([5963323](https://github.com/filiphsps/react-native-scroll-to-child/commit/5963323b0475524ec82730fe9b06b0344bdafc38))
+
+
+### chore
+
+* Fix the releases ([aad796b](https://github.com/filiphsps/react-native-scroll-to-child/commit/aad796b8be904faa909ae44be8529a47c3fc4b38))
+
+
+### BREAKING CHANGES
+
+* From earlier, i.e. in previous commits when the release process was broken
+* Combine `wrapScrollViewConfigured` and `wrapScrollView` into one
+feat(tests): Substantially improve testing
+feat(ci): Improve CI runs
+chore(docs): Improve `README.md`
+
 ## [0.0.6](https://github.com/filiphsps/react-native-scroll-to-child/compare/v0.0.5...v0.0.6) (2025-07-31)
 
 
