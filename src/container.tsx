@@ -15,7 +15,7 @@ const showNotInContextWarning = throttle(() => {
     );
 }, 5000);
 
-type ContainerProps = {
+export type ContainerProps = {
     enabled?: boolean;
     scrollIntoViewKey?: string | number | boolean;
     animated?: boolean;
