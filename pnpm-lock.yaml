@@ -46,8 +46,8 @@ importers:
         specifier: 14.0.3
         version: 14.0.3(semantic-release@24.2.7(typescript@5.9.2))
       '@testing-library/react-native':
-        specifier: 13.3.1
-        version: 13.3.1(jest@30.0.5(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.9.2)))(react-native@0.81.0(@babel/core@7.27.4)(@react-native/metro-config@0.81.0(@babel/core@7.27.4))(@types/react@19.1.8)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
+        specifier: 13.3.2
+        version: 13.3.2(jest@30.0.5(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.9.2)))(react-native@0.81.0(@babel/core@7.27.4)(@react-native/metro-config@0.81.0(@babel/core@7.27.4))(@types/react@19.1.8)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
@@ -1333,8 +1333,8 @@ packages:
   '@sinonjs/fake-timers@13.0.5':
     resolution: {integrity: sha512-36/hTbH2uaWuGVERyC6da9YwGWnzUZXuPro/F2LfsdOsLnCojz/iSH8MxUt/FD2S5XBSVPhmArFUXcpCQ2Hkiw==}
 
-  '@testing-library/react-native@13.3.1':
-    resolution: {integrity: sha512-o7aGggPVEl/Samx26ubACT0nuQn8/n+1VfDZ3lJ6SFrK9IYkEvaMY2M5hHg9kYcImNFlgsmqc3FgN1VaLAkjyA==}
+  '@testing-library/react-native@13.3.2':
+    resolution: {integrity: sha512-+vplu56J06CwfuBWpXcmKW8ACMgzTLUsjS0CTIHWr4AzrYZdYsZRCivPLW4IdVIH1z72nsCs0XgtV3jczHyPBw==}
     engines: {node: '>=18'}
     peerDependencies:
       jest: '>=29.0.0'
@@ -6335,7 +6335,7 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@testing-library/react-native@13.3.1(jest@30.0.5(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.9.2)))(react-native@0.81.0(@babel/core@7.27.4)(@react-native/metro-config@0.81.0(@babel/core@7.27.4))(@types/react@19.1.8)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)':
+  '@testing-library/react-native@13.3.2(jest@30.0.5(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.9.2)))(react-native@0.81.0(@babel/core@7.27.4)(@react-native/metro-config@0.81.0(@babel/core@7.27.4))(@types/react@19.1.8)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)':
     dependencies:
       jest-matcher-utils: 30.0.5
       picocolors: 1.1.1
