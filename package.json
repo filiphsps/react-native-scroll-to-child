@@ -108,7 +108,7 @@
         "ts-jest": "29.4.4",
         "ts-node": "10.9.2",
         "tsup": "8.5.0",
-        "typescript": "5.9.2"
+        "typescript": "5.9.3"
     },
     "release": {
         "repositoryUrl": "https://github.com/filiphsps/react-native-scroll-to-child",
