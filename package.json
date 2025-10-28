@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/package.json",
     "name": "react-native-scroll-to-child",
-    "packageManager": "pnpm@10.19.0",
+    "packageManager": "pnpm@10.20.0",
     "private": false,
     "version": "0.1.0",
     "description": "Scroll a ScrollView's child into the visible viewport",
