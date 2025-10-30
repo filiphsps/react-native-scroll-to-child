@@ -103,7 +103,7 @@
         "react-native": "0.82.1",
         "react-test-renderer": "19.1.0",
         "react": "19.1.0",
-        "rimraf": "6.0.1",
+        "rimraf": "6.1.0",
         "semantic-release": "25.0.1",
         "ts-jest": "29.4.5",
         "ts-node": "10.9.2",
