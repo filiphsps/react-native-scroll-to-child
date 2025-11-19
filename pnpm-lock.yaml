@@ -6,7 +6,7 @@ settings:
 
 overrides:
   glob: '11'
-  rimraf: 6.1.0
+  rimraf: 6.1.2
 
 importers:
 
@@ -118,8 +118,8 @@ importers:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
       rimraf:
-        specifier: 6.1.0
-        version: 6.1.0
+        specifier: 6.1.2
+        version: 6.1.2
       semantic-release:
         specifier: 25.0.2
         version: 25.0.2(typescript@5.9.3)
@@ -4266,8 +4266,8 @@ packages:
     resolution: {integrity: sha512-g6QUff04oZpHs0eG5p83rFLhHeV00ug/Yf9nZM6fLeUrPguBTkTQOdpAWWspMh55TZfVQDPaN3NQJfbVRAxdIw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
 
-  rimraf@6.1.0:
-    resolution: {integrity: sha512-DxdlA1bdNzkZK7JiNWH+BAx1x4tEJWoTofIopFo6qWUU94jYrFZ0ubY05TqH3nWPJ1nKa1JWVFDINZ3fnrle/A==}
+  rimraf@6.1.2:
+    resolution: {integrity: sha512-cFCkPslJv7BAXJsYlK1dZsbP8/ZNLkCAQ0bi1hf5EKX2QHegmDFEFA6QhuYJlk7UDdc+02JjO80YSOrWPpw06g==}
     engines: {node: 20 || >=22}
     hasBin: true
 
@@ -6467,9 +6467,7 @@ snapshots:
       metro-runtime: 0.83.1
     transitivePeerDependencies:
       - '@babel/core'
-      - bufferutil
       - supports-color
-      - utf-8-validate
     optional: true
 
   '@react-native/normalize-colors@0.82.1': {}
@@ -7357,7 +7355,7 @@ snapshots:
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
       mkdirp: 1.0.4
-      rimraf: 6.1.0
+      rimraf: 6.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -8144,7 +8142,7 @@ snapshots:
     dependencies:
       flatted: 3.3.3
       keyv: 4.5.4
-      rimraf: 6.1.0
+      rimraf: 6.1.2
 
   flat-cache@4.0.1:
     dependencies:
@@ -10046,7 +10044,7 @@ snapshots:
 
   reusify@1.1.0: {}
 
-  rimraf@6.1.0:
+  rimraf@6.1.2:
     dependencies:
       glob: 11.0.3
       package-json-from-dist: 1.0.1
