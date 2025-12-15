@@ -1,3 +1,15 @@
+## [0.2.1](https://github.com/filiphsps/react-native-scroll-to-child/compare/v0.2.0...v0.2.1) (2025-12-15)
+
+
+### Bug Fixes
+
+* Migrate to modern test renderer. ([0b50b4a](https://github.com/filiphsps/react-native-scroll-to-child/commit/0b50b4ac11ab1e18328b776acb2e5529d159511e))
+
+
+### Features
+
+* Bump version. ([cb9bb4f](https://github.com/filiphsps/react-native-scroll-to-child/commit/cb9bb4f64742321b144a510c0a7dbe9455a002e5))
+
 # [0.2.0](https://github.com/filiphsps/react-native-scroll-to-child/compare/v0.1.0...v0.2.0) (2025-07-31)
 
 
