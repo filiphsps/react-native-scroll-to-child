@@ -10,8 +10,8 @@ const jestConfig: Config = {
     coverageProvider: 'v8',
     coverageReporters: ['json', 'text', 'text-summary'],
     json: true,
+    //testEnvironment: 'jsdom',
     collectCoverageFrom: ['src/**/*.*', '!**/node_modules/**'],
-    testEnvironment: 'node',
     transform: {
         '^.+\\.tsx?$': [
             'ts-jest',
