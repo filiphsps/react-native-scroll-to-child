@@ -1,3 +1,10 @@
+## [0.2.2](https://github.com/filiphsps/react-native-scroll-to-child/compare/v0.2.1...v0.2.2) (2026-01-03)
+
+
+### Features
+
+* Bump version. ([3262e03](https://github.com/filiphsps/react-native-scroll-to-child/commit/3262e03262a15103ef193e9c4f963215a70c9eb5))
+
 ## [0.2.1](https://github.com/filiphsps/react-native-scroll-to-child/compare/v0.2.0...v0.2.1) (2025-12-15)
 
 
