@@ -47,13 +47,13 @@ importers:
         version: 14.1.0(semantic-release@25.0.2(typescript@5.9.3))
       '@testing-library/react-native':
         specifier: 13.3.3
-        version: 13.3.3(jest@30.2.0(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.9.3)))(react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.10)(react@19.2.3))(react-test-renderer@19.2.3(react@19.2.3))(react@19.2.3)
+        version: 13.3.3(jest@30.2.0(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.9.3)))(react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.14)(react@19.2.3))(react-test-renderer@19.2.3(react@19.2.3))(react@19.2.3)
       '@types/jest':
         specifier: ^30.0.0
         version: 30.0.0
       '@types/react':
-        specifier: 19.2.10
-        version: 19.2.10
+        specifier: 19.2.14
+        version: 19.2.14
       '@typescript-eslint/eslint-plugin':
         specifier: 8.54.0
         version: 8.54.0(@typescript-eslint/parser@8.54.0(eslint@9.39.2)(typescript@5.9.3))(eslint@9.39.2)(typescript@5.9.3)
@@ -113,7 +113,7 @@ importers:
         version: 19.2.3
       react-native:
         specifier: 0.85.3
-        version: 0.85.3(@babel/core@7.27.4)(@types/react@19.2.10)(react@19.2.3)
+        version: 0.85.3(@babel/core@7.27.4)(@types/react@19.2.14)(react@19.2.3)
       rimraf:
         specifier: 6.1.2
         version: 6.1.2
@@ -1510,8 +1510,8 @@ packages:
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
 
-  '@types/react@19.2.10':
-    resolution: {integrity: sha512-WPigyYuGhgZ/cTPRXB2EwUw+XvsRA3GqHlsP4qteqrnnjDrApbS7MxcGr/hke5iUoeB7E/gQtrs9I37zAJ0Vjw==}
+  '@types/react@19.2.14':
+    resolution: {integrity: sha512-ilcTH/UniCkMdtexkoCN0bI7pMcJDvmQFPvuPvmEaYA/NSfFTAgdUSLAoVjaRJm7+6PvcM+q1zYOwS4wTYMF9w==}
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
@@ -6404,14 +6404,14 @@ snapshots:
 
   '@react-native/normalize-colors@0.85.3': {}
 
-  '@react-native/virtualized-lists@0.85.3(@types/react@19.2.10)(react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.10)(react@19.2.3))(react@19.2.3)':
+  '@react-native/virtualized-lists@0.85.3(@types/react@19.2.14)(react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)':
     dependencies:
       invariant: 2.2.4
       nullthrows: 1.1.1
       react: 19.2.3
-      react-native: 0.85.3(@babel/core@7.27.4)(@types/react@19.2.10)(react@19.2.3)
+      react-native: 0.85.3(@babel/core@7.27.4)(@types/react@19.2.14)(react@19.2.3)
     optionalDependencies:
-      '@types/react': 19.2.10
+      '@types/react': 19.2.14
 
   '@rollup/rollup-android-arm-eabi@4.46.2':
     optional: true
@@ -6588,13 +6588,13 @@ snapshots:
     dependencies:
       '@sinonjs/commons': 3.0.1
 
-  '@testing-library/react-native@13.3.3(jest@30.2.0(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.9.3)))(react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.10)(react@19.2.3))(react-test-renderer@19.2.3(react@19.2.3))(react@19.2.3)':
+  '@testing-library/react-native@13.3.3(jest@30.2.0(@types/node@24.0.3)(ts-node@10.9.2(@types/node@24.0.3)(typescript@5.9.3)))(react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.14)(react@19.2.3))(react-test-renderer@19.2.3(react@19.2.3))(react@19.2.3)':
     dependencies:
       jest-matcher-utils: 30.2.0
       picocolors: 1.1.1
       pretty-format: 30.2.0
       react: 19.2.3
-      react-native: 0.85.3(@babel/core@7.27.4)(@types/react@19.2.10)(react@19.2.3)
+      react-native: 0.85.3(@babel/core@7.27.4)(@types/react@19.2.14)(react@19.2.3)
       react-test-renderer: 19.2.3(react@19.2.3)
       redent: 3.0.0
     optionalDependencies:
@@ -6659,7 +6659,7 @@ snapshots:
 
   '@types/normalize-package-data@2.4.4': {}
 
-  '@types/react@19.2.10':
+  '@types/react@19.2.14':
     dependencies:
       csstype: 3.2.3
 
@@ -9670,7 +9670,7 @@ snapshots:
 
   react-is@19.2.3: {}
 
-  react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.10)(react@19.2.3):
+  react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.14)(react@19.2.3):
     dependencies:
       '@react-native/assets-registry': 0.85.3
       '@react-native/codegen': 0.85.3(@babel/core@7.27.4)
@@ -9678,7 +9678,7 @@ snapshots:
       '@react-native/gradle-plugin': 0.85.3
       '@react-native/js-polyfills': 0.85.3
       '@react-native/normalize-colors': 0.85.3
-      '@react-native/virtualized-lists': 0.85.3(@types/react@19.2.10)(react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.10)(react@19.2.3))(react@19.2.3)
+      '@react-native/virtualized-lists': 0.85.3(@types/react@19.2.14)(react-native@0.85.3(@babel/core@7.27.4)(@types/react@19.2.14)(react@19.2.3))(react@19.2.3)
       abort-controller: 3.0.0
       anser: 1.4.10
       ansi-regex: 5.0.1
@@ -9706,7 +9706,7 @@ snapshots:
       ws: 7.5.10
       yargs: 17.7.2
     optionalDependencies:
-      '@types/react': 19.2.10
+      '@types/react': 19.2.14
     transitivePeerDependencies:
       - '@babel/core'
       - '@react-native-community/cli'
